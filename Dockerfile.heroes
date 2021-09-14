@@ -1,0 +1,18 @@
+# syntax=docker/dockerfile:1
+
+FROM node:12.18.1
+
+ENV NODE_ENV=production
+
+WORKDIR /app/heroes_service
+
+COPY ['heroes/package.json'] /app/heroes_service
+
+RUN npm install --production
+
+COPY /heroes/. /app/heroes_service
+
+# Define the network ports that this container will listen on at runtime.
+EXPOSE 8081
+
+CMD [ "node", "heroes.js" ]
